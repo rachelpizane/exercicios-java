@@ -1,47 +1,30 @@
 package com.rachelparticular.beeCrowd.exc1019;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ConverterTempoTest {
 
     ConverterTempo conversor;
-    int seg;
 
-    @Test
-    void result1() {
-        seg = 556;
+    @ParameterizedTest
+    @CsvSource({
+            "556, '0:9:16\r\n'",
+            "1, '0:0:1\r\n'",
+            "140153, '38:55:53\r\n'"
+    })
+    @DisplayName("Convert seconds to hours, minutes and seconds.")
+    void expectedConvertSecondsToHoursMinutesAndSeconds(int seg, String expected) {
         conversor = new ConverterTempo(seg);
 
         String actual = conversor.result();
-        String expected = "0:9:16\r\n";
 
-        assertEquals(actual,expected,String.format("O resultado esperado era %s",expected));
+        assertEquals(actual,expected,String.format("The expected result is %s",expected));
     }
-
-    @Test
-    void result2() {
-        seg = 1;
-        conversor = new ConverterTempo(seg);
-
-        String actual = conversor.result();
-        String expected = "0:0:1\r\n";
-
-        assertEquals(actual,expected,String.format("O resultado esperado era %s",expected));
-    }
-
-    @Test
-    void result3() {
-        seg = 140153;
-        conversor = new ConverterTempo(seg);
-
-        String actual = conversor.result();
-        String expected = "38:55:53\r\n";
-
-        assertEquals(actual,expected,String.format("O resultado esperado era %s",expected));
-    }
-
-
 }
